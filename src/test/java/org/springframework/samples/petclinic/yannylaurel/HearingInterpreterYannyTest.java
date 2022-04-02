@@ -18,7 +18,7 @@ public class HearingInterpreterYannyTest {
 
     // A Simple JUnit 4 test
     @Test
-    public void whatIHeardIsLaurel() {
+    public void whatIHeardIsYanny() {
         String word = hearingInterpreter.whatIHeard();
         assertEquals("Yanny", word);
     }
