@@ -5,10 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.yannylaurel.BaseConfig;
 import org.springframework.samples.petclinic.yannylaurel.HearingInterpreter;
 import org.springframework.samples.petclinic.yannylaurel.LaurelConfig;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+
+@ActiveProfiles("base-test")
 @SpringJUnitConfig(classes = {BaseConfig.class, LaurelConfig.class})
 class HearingInterpreterLaurelTest {
 
