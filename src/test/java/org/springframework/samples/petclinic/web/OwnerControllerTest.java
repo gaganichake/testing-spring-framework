@@ -115,4 +115,18 @@ class OwnerControllerTest {
                 .andExpect(status().is3xxRedirection());
     }
 
+    // Remove telephone and city to invalidate the input
+    @Test
+    void testProcessCreationFormInvalid() throws Exception {
+        mockMvc.perform(post("/owners/new")
+                        .param("firstName", "Jimmy")
+                        .param("lastName", "Buffet")
+                        .param("address", "123 Blvd St"))
+                .andExpect(model().attributeHasErrors("owner"))
+                .andExpect(model().attributeHasFieldErrors("owner", "city"))
+                .andExpect(model().attributeHasFieldErrors("owner", "telephone"))
+                .andExpect(view().name("owners/createOrUpdateOwnerForm"))
+                .andExpect(status().isOk());
+    }
+
 }
