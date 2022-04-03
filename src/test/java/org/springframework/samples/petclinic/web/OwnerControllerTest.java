@@ -18,6 +18,7 @@ import java.util.Collection;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.reset;
@@ -83,6 +84,24 @@ class OwnerControllerTest {
 
         // Assert that value Last Name of the Last Name is an empty String now (Using Argument Captor).
         assertThat(stringArgumentCaptor.getValue()).isEqualTo("");
+    }
+
+    @Test
+    void testProcessFindFormFindByNameFoundOne() throws Exception {
+        final String lastName = "Dee";
+        Owner owner = new Owner();
+        owner.setId(1);
+        owner.setLastName(lastName);
+        Collection<Owner> results = List.of(owner);
+
+        given(clinicService.findOwnerByLastName(lastName)).willReturn(results);
+
+        mockMvc.perform(get("/owners").param("lastName", lastName)) // when, given
+                .andExpect(view().name("redirect:/owners/1")) // then
+                .andExpect(status().is3xxRedirection()); // then
+
+        then(clinicService).should().findOwnerByLastName(anyString());
+
     }
 
 }
